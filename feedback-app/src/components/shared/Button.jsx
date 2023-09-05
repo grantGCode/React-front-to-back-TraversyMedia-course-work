@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 
-function Button( children, version, type, isDisabled) {
+function Button( array, version, type, isDisabled) {
   return (
     <div type={type} disabled={isDisabled} className={`btn btn${version}`}>
-        {children}
+        {array}
     </div>
   )
 }
@@ -14,8 +14,8 @@ Button.defaultProps = {
     isDisabled: false
 }
 
-Button.PropTypes = {
-    children: PropTypes.node.isRequired,
+Button.PropType = {
+    array: PropTypes.node.isRequired,
     vertion: PropTypes.string,
     type: PropTypes.string,
     isDisabled: PropTypes.bool,
