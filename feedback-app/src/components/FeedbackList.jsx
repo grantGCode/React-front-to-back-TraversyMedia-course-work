@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import FeedbackItem from './feedbackItem'
+import FeedbackItem from './FeedbackItem'
 
 function FeedbackList({feedback, handleDelete}) {
     if(!feedback || feedback.length === 0) {
