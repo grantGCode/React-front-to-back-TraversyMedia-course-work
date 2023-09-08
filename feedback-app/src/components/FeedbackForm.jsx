@@ -29,7 +29,7 @@ function FeedbackForm() {
         {/* @todo - rating select component*/}
         <div className="input-group">
             <input onChange={handTextChange} type='text' placeholder='Wright a review' value={text} />
-            <Button  type='submit' isDisabled={btnDisabled}>Send</Button>
+            <Button  type='submit'isDisabled={btnDisabled}>Send</Button>
             {/* @todo - button will be in it's own component this is a place holder for now*/}
         </div>
         {message && <div className='message'>{message}</div>}
