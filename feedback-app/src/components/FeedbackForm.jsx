@@ -25,17 +25,29 @@ function FeedbackForm() {
       setText(e.target.value)
     }
 
-  return <Card>
-    <form>
-        <h2>Houw would you rate our service?</h2>
-        {/* @todo - rating select component*/}
-        <RaitingSelect select={(rating) => setRaiting(rating)}/>
-        <div className="input-group">
-            <input onChange={handTextChange} type='text' placeholder='Wright a review' value={text} />
-            <Button  type='submit'isDisabled={btnDisabled}>Send</Button>
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if (text.trim().length > 10) {
+            const newFeedback = {
+                text: text,
+                rating: rating,
+            }
 
-        </div>
-    </form>
+            console.log(newFeedback)
+        }
+    }
+
+  return <Card>
+        <form onSubmit={handleSubmit}>
+            <h2>Houw would you rate our service?</h2>
+            {/* @todo - rating select component*/}
+            <RaitingSelect select={(rating) => setRaiting(rating)}/>
+            <div className="input-group">
+                <input onChange={handTextChange} type='text' placeholder='Wright a review' value={text} />
+                <Button  type='submit'isDisabled={btnDisabled}>Send</Button>
+
+            </div>
+        </form>
 
     </Card>
   
