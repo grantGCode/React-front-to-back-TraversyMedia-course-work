@@ -145,6 +145,7 @@ input:focus {
   right: 40px;
 }
 
+
 .btn {
   color: #fff;
   border: 0;
@@ -153,6 +154,7 @@ input:focus {
   width: 100px;
   height: 40px;
   cursor: pointer;
+  text-align: center;
 }
 
 .btn-primary {
