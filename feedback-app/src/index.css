@@ -145,6 +145,7 @@ input:focus {
   right: 40px;
 }
 
+
 .btn {
   color: #fff;
   border: 0;
@@ -154,9 +155,6 @@ input:focus {
   height: 40px;
   cursor: pointer;
   text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .btn-primary {
