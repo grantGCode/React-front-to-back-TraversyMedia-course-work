@@ -54,6 +54,7 @@ return ( <FeedbackContext.Provider value={{
             deleteFeedback,
             addFeedback,
             editFeedback,
+            feedbackEdit,
             }}>
                 {children}
             </FeedbackContext.Provider>
