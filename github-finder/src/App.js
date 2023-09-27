@@ -1,10 +1,14 @@
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import Navbar from './commponents/layout/Navbar'
+
 
 function App() {
   return (
-    <div className="bg-purple-500">
-      <h1 className="text-xl">Hello World</h1>
-      <button className='btn'>Click</button>
-    </div>
+    <Router>
+      <div className='.fex-col.justify-between.h-screen'>
+        <Navbar />
+      </div>
+    </Router>
   );
 }
 
