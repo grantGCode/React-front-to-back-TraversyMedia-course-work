@@ -1,8 +1,16 @@
 import React from 'react'
+import UserResults from '../commponents/users/UserResults'
+
 
 function Home() {
+
   return (
-    <h1 className='text-6xl'>Welcome</h1>
+    <div >
+      
+      <UserResults />
+      
+    </div>
+    
   )
 }
 
