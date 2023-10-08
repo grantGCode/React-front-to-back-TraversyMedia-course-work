@@ -9,16 +9,20 @@ const GITHUB_TOKEN  = process.env.REACT_APP_GITHUB_TOKEN
 
 export const GithubProvider = ({children}) => {
     const initialState = {
-        users: [],
-        loading: false
-    }
-
+            users: [],
+            loading: false
+        }   
+        
+    
     const [state, dispatch] = useReducer(githubReducers, initialState)
     
     // Set loading
     const setLoading = () => {dispatch({type: 'SET_LOADING',})
-    console.log('function ran')
-}
+    }
+
+    // Clear Users from state
+    const clearUsers = () => {dispatch({type: 'CLEAR_USERS'})}
+    
     // Get Search Results
     const searchUsers = async (text) => {
         setLoading();
@@ -46,6 +50,7 @@ export const GithubProvider = ({children}) => {
         users: state.users, 
         loading: state.loading, 
         searchUsers,
+        clearUsers,
     }}>{children}</GithubContext.Provider>
 }
 

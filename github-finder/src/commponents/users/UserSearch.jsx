@@ -6,7 +6,7 @@ function UserSearch() {
     
     const [text, setText] = useState('')
     
-    const {users, searchUsers} = useContext(GithubContext)
+    const {users, searchUsers, clearUsers} = useContext(GithubContext)
 
     const handleSubmit = (e) => {
         console.log(e);
@@ -40,7 +40,7 @@ function UserSearch() {
         </form>
     </div>
     <div>
-        {users.length > 0 && (<button className='btn btn-ghost btn-lg'>
+        {users.length > 0 && (<button onClick={clearUsers} className='btn btn-ghost btn-lg'>
             Clear
         </button>)}
     </div>
