@@ -1,9 +1,7 @@
-import React from 'react'
-import {useEffect, useContext} from 'react'
-import UserItem from './UserItem.jsx'
+import React, { useState } from 'react'
+import {useEffect} from 'react'
 import Spinner from '../layout/Spinner'
-import GithubContext from '../../Context/GithubContext/GithubContext'
-
+import UserItem from '../users/UserItem'
 
 function UserResults() {
   const {users, loading} =useContext(GithubContext)
