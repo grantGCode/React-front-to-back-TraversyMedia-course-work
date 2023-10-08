@@ -4,6 +4,7 @@ import GithubContext from '../../Context/GithubContext/GithubContext'
 import Spinner from '../layout/Spinner'
 import UserItem from '../users/UserItem'
 
+
 function UserResults() {
   const {users, loading} =useContext(GithubContext)
 
