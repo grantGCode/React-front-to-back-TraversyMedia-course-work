@@ -19,29 +19,33 @@ export const GithubProvider = ({children}) => {
     const setLoading = () => {dispatch({type: 'SET_LOADING',})
     console.log('function ran')
 }
-    // Get init users (testing purposes)
-    const fetchUsers = async () => {
+    // Get Search Results
+    const searchUsers = async (text) => {
         setLoading();
 
-        const response = await fetch(`${GITHUB_URL}/users`, {
+        const params = new URLSearchParams({
+            q: text
+        })
+
+        const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
             headers: {
                 Authorization: `token ${GITHUB_TOKEN}`
             }
         })  
         
-        const data = await response.json()
+        const {items} = await response.json()
 
         dispatch({
         users: state.users,
         type: 'Get_USERS',
-        payload: data,
+        payload: items,
       })
     }
 
     return <GithubContext.Provider value={{
         users: state.users, 
         loading: state.loading, 
-        fetchUsers,
+        searchUsers,
     }}>{children}</GithubContext.Provider>
 }
 

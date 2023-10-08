@@ -6,7 +6,7 @@ function UserSearch() {
     
     const [text, setText] = useState('')
     
-    const {users} = useContext(GithubContext)
+    const {users, searchUsers} = useContext(GithubContext)
 
     const handleSubmit = (e) => {
         console.log(e);
@@ -15,8 +15,7 @@ function UserSearch() {
         if (text === '') {
                 alert("Please enter a Search Option...")
             }else{
-                // @todo Search users
-
+                searchUsers(text)
                     setText('')
                 }
 
