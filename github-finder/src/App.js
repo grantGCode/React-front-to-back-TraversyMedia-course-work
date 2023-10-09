@@ -1,6 +1,7 @@
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import Home from './pages/Home';
 import About from './pages/About';
+import Alert from './commponents/layout/Alert';
 import NotFound from './pages/NotFound';
 import Navbar from './commponents/layout/Navbar'
 import Footer from './commponents/layout/Footer';
@@ -16,11 +17,12 @@ function App() {
             <Navbar />
 
             <main className='container mx-auto px-3 pb-12'>
-              <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/about' element={<About />} />
-                <Route path='/*' element={<NotFound />} />
-              </Routes>
+              <Alert />
+                <Routes>
+                  <Route path='/' element={<Home />} />
+                  <Route path='/about' element={<About />} />
+                  <Route path='/*' element={<NotFound />} />
+                </Routes>
             </main>
 
             <Footer />
