@@ -3,6 +3,7 @@ import { useState, useContext } from 'react'
 import GithubContext from '../../Context/GithubContext/GithubContext'
 import AlertContext from '../../Context/alert/AlertContext'
 
+
 function UserSearch() {
     
     const [text, setText] = useState('')
@@ -12,7 +13,7 @@ function UserSearch() {
     const {setAlert} = useContext(AlertContext)
 
     const handleSubmit = (e) => {
-        console.log(e);
+
         e.preventDefault();
         
         if (text === '') {
