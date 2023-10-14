@@ -6,7 +6,7 @@ import Alert from './commponents/layout/Alert';
 import NotFound from './pages/NotFound';
 import Navbar from './commponents/layout/Navbar'
 import Footer from './commponents/layout/Footer';
-import { GithubProvider } from './Context/GithubContext/GithubContext';
+import { GithubProvider } from './Context/GithubContext';
 import { AlertProvider} from './Context/alert/AlertContext'
 
 function App() {

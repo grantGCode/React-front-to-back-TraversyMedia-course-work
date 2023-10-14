@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useContext } from 'react'
-import GithubContext from '../../Context/GithubContext/GithubContext'
+import GithubContext from '../../Context/GithubContext'
 import AlertContext from '../../Context/alert/AlertContext'
 
 
