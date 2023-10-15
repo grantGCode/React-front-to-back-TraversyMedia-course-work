@@ -92,17 +92,16 @@ function User() {
                     <div className='text-lg stat-value'>{location}</div>
                   </div>)}
               </div>
-            </div>
               <div className='w-full.rounded-lg shadow-md bg-base-100 stats'>
                 {blog && (
-                      <div className='stat'>
+                  <div className='stat'>
                         <div className='stat-title text-md'>Website</div>
                         <div className='text-lg stat-value'>{blog}</div>
                         <a
                           href='https://${blog}' 
                           target='_blank'
                           rel='noreferrer'
-                        >
+                          >
                           {blog}
                         </a>
                       </div>
@@ -117,11 +116,12 @@ function User() {
                       href={`https://twitter.com${twitter_username}`} 
                       target='_blank'
                       rel='noreferrer'
-                    >
+                      >
                       {twitter_username}
                     </a>
                   </div>)}
                 </div>
+        </div>
         </div>
           <div className='.w-full py-5 mb-6 rounded-lg shadow-md bg-base100 starts'>
             <div className='stat'>
