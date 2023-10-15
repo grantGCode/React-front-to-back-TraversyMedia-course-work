@@ -1,6 +1,12 @@
+import axios from 'axios'
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL
 const GITHUB_TOKEN  = process.env.REACT_APP_GITHUB_TOKEN
 
+
+const github = axios.create({
+    baseURL: GITHUB_URL,
+    headers: { Authorization: `token ${GITHUB_TOKEN}`},
+})
 
  // Get Search Results
  export const searchUsers = async (text) => {
@@ -11,55 +17,17 @@ const GITHUB_TOKEN  = process.env.REACT_APP_GITHUB_TOKEN
     })
     
     
-    const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
-        headers: {
-            Authorization: `token ${GITHUB_TOKEN}`
-        }
-    })  
-    
-    const {items} = await response.json()
-    
- return items
+    const response = await github.get(`${GITHUB_URL}/search/users?${params}`)
+    return response.data.items
 }
 
-// Get Single User
-export const getUser = async (login) => {
-    
-    
-    const params = new URLSearchParams({
-        q: login
-    })
-    
-    const response = await fetch(`${GITHUB_URL}/users/${login}`, {
-        headers: {
-            Authorization: `token ${GITHUB_TOKEN}`
-        },
-    })
-    /* If user not found redirect to NotFound page*/
-    if (response.status === 404) {
-        window.location = '/notfound'
-        /* If user found direct to /User/:login */
-    }else{  
-        const data = await response.json()
-        
-        return data 
-    }}   
-    
-    // Get User Repos
-    export const getUserRepos = async (login) => {
+// Get User and Repos
 
-            const params = new URLSearchParams({
-                sort: "created",
-                per_page: 10
-            })
-                                
-            const response = await fetch(`${GITHUB_URL}/users/${login}/repos?${params}`, {
-                    headers: {
-                            Authorization: `token ${GITHUB_TOKEN}`
-                        }
-                    })  
-                    
-                    const data = await response.json()
-                    
-                    return data
-                    }
+export const  getUserAndRepos = async(login) => {
+    const  [user, repos] = await Promise.all([
+        github.get(`/user/${login}`),
+        github.get(`/user/${login}/repos`),
+    ])
+
+    return { user: user.data, repos: repos.data }
+}
