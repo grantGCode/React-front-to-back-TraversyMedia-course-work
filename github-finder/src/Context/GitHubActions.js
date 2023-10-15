@@ -21,3 +21,45 @@ const GITHUB_TOKEN  = process.env.REACT_APP_GITHUB_TOKEN
     
  return items
 }
+
+// Get Single User
+export const getUser = async (login) => {
+    
+    
+    const params = new URLSearchParams({
+        q: login
+    })
+    
+    const response = await fetch(`${GITHUB_URL}/users/${login}`, {
+        headers: {
+            Authorization: `token ${GITHUB_TOKEN}`
+        },
+    })
+    /* If user not found redirect to NotFound page*/
+    if (response.status === 404) {
+        window.location = '/notfound'
+        /* If user found direct to /User/:login */
+    }else{  
+        const data = await response.json()
+        
+        return data 
+    }}   
+    
+    // Get User Repos
+    export const getUserRepos = async (login) => {
+
+            const params = new URLSearchParams({
+                sort: "created",
+                per_page: 10
+            })
+                                
+            const response = await fetch(`${GITHUB_URL}/users/${login}/repos?${params}`, {
+                    headers: {
+                            Authorization: `token ${GITHUB_TOKEN}`
+                        }
+                    })  
+                    
+                    const data = await response.json()
+                    
+                    return data
+                    }
