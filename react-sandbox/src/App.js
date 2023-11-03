@@ -1,10 +1,10 @@
-import UseCallbackExample from './components/UseCallbackExample'
+import CustomHookExample1 from "./components/CustomHookExample";
 
 function App() {
  
   return (
     <>
-      <UseCallbackExample />
+      <CustomHookExample1 />
     </>
   );
 }
