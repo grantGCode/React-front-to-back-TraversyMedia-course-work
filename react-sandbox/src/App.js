@@ -1,10 +1,10 @@
-import CustomHookExample1 from "./components/CustomHookExample";
+import CustomHookExample2 from "./components/CustomHookExample2";
 
 function App() {
  
   return (
     <>
-      <CustomHookExample1 />
+      <CustomHookExample2 />
     </>
   );
 }
