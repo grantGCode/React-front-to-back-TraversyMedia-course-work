@@ -31,16 +31,29 @@ function Category() {
                 let listings = []
 
                 querySnap.forEach((doc) => {
-                    console.log(doc.data())
+                    return listings.push({
+                        id: doc.id,
+                        data: doc.data()
+                        
+                    })
                 })
+
+                setListings(listings)
+                setLoading(false)
             } catch (error) {
+                toast.error('could not fetch listings')
                 
             }
         }
-    })
+    }, [])
 
   return (
-    <div>Category</div>
+    <div className='category'>
+        <header>
+            <p className='pageHeader'>{params.categoryName === 'rent' ? 'Places for rent' : 'Places for Sale'}</p>
+        </header>
+        {loading ? <Spinner /> : listings && listings.length > 0 ? <></> : <p>No listings for {params.categoryName}</p>}
+    </div>
   )
 }
 
