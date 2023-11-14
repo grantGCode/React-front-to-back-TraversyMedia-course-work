@@ -31,13 +31,14 @@ function Category() {
                 let listings = []
 
                 querySnap.forEach((doc) => {
-                    console.log(doc.data())
                     return listings.push({
                         id: doc.id,
                         data: doc.data()
                     })
                 })
-
+                
+                setListings(listings)
+                setLoading(false)
             } catch (error) {
                 toast.error('could not fetch listings')
                 console.log(error)
@@ -46,8 +47,6 @@ function Category() {
         }
         
         fetchListings()
-        setListings(listings)
-        setLoading(false)
     }, [params.categoryName])
 
   return (
@@ -61,9 +60,8 @@ function Category() {
 
                 <main>
                     <ul className="categoryListings">
-                        {listings.map((listing) => (
-                            <h3 key={listing.id}>{listing.data.name}</h3>
-                        ))}
+                        {listings.map((listing) => (<h3 key={listing.id}>{listing.data.name}</h3>))}
+                            
                     </ul>
                 </main>
             ) : <p>No listings for {params.categoryName}</p>}
