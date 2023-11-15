@@ -10,7 +10,7 @@ function ListingItem({listing, id }) {
     <div>
         <li className='categoryListing'>
             <Link to={`/category/${listing.type}/${id}`} className='categoryListingLink'></Link>
-            <img src={listing.imgUrls} alt={listing.name} className='categoryListingImg' />
+            <img src={listing.imageUrls[1]} alt={listing.name} className='categoryListingImg' />
         </li>
     </div>
   )
