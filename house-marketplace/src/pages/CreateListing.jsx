@@ -2,10 +2,12 @@ import React, { useState, useEffect, useRef } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import Spinner from '../components/Spinner'
+import { toast } from 'react-toastify'
 
 
 function CreateListing() {
-  const [geolocationEnabled, setgeolocationEnabled] = useState(true)
+  
+  const [geolocationEnabled, setgeolocationEnabled] = useState(false)
   const[loading, setLoading] = useState(false)
   const [fromData, setFormData] = useState({
     type: 'rent',
@@ -44,9 +46,50 @@ function CreateListing() {
     }
   }, [isMounted])
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
-    console.log(fromData)
+    if (discountedPrice >= regularPrice) {
+      setLoading(false)
+      toast.error('Discounted price needs to be less than regular Price')
+      return
+    }
+    
+    if (images.length > 6) {
+      setLoading(false)
+      toast.error('Max 6 images')
+      return
+    }
+    
+    let geolocation = {}
+    let location = {}
+
+      /* If Google Geolocation is suported add uncomment lines 68-90 and add key on line 69 */
+
+    // if(geolocationEnabled) {
+    //   const responce = await fetch(/*add Google Geolocation API key here*/)
+
+    // const data = await responce.json()
+
+    // console.log(data)
+    
+    // geolocation.lat = data.results[0]?.geometry.location.lat ?? 0
+    // geolocation.lng = data.results[0]?.geometry.location.lng ?? 0
+
+    // location = data.status === 'ZERO_RESULTS' ? undefined : data.results[0]?.formated_address
+    
+    // if (location === undefined || location.includes('undefined')
+    // ){
+    //   setLoading(false)
+    //   toast.error('Please enter a correct address')
+    //   return 
+    //  }
+    // } else {
+    geolocation.lat = latitude
+    location.lng = longitude
+    location = address
+    console.log(geolocation, location)
+    // }
+
   }
 
   const onMutate = (e) => {
