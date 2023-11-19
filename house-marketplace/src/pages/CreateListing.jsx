@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
+import {addDoc, collection, serverTimestamp} from 'firebase/firestore'
 import {db} from '../firebase.config'
 import { useNavigate } from 'react-router-dom'
 import { v4 as uuidv4} from 'uuid'
@@ -12,7 +13,7 @@ function CreateListing() {
   
   const [geolocationEnabled, setgeolocationEnabled] = useState(false)
   const[loading, setLoading] = useState(false)
-  const [fromData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     type: 'rent',
     name: '',
     bedrooms: 1,
@@ -28,7 +29,7 @@ function CreateListing() {
     longitude: 0,
   })
 
-  const {type, name, bedrooms, bathrooms, parking, furnished, address, offer, regularPrice, discountedPrice, images, latitude, longitude} = fromData
+  const {type, name, bedrooms, bathrooms, parking, furnished, address, offer, regularPrice, discountedPrice, images, latitude, longitude} = formData
 
   const auth = getAuth()
   const navigate = useNavigate()
@@ -37,7 +38,7 @@ function CreateListing() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
     if(isMounted) {
-      setFormData({...fromData, userRef: user.uid})
+      setFormData({...formData, userRef: user.uid})
     } else {
        navigate('/sign-in')
     }
@@ -116,6 +117,7 @@ function CreateListing() {
                 }
               }, 
               (error) => {
+                console.log(error)
                 reject(error)
               }, 
               () => {
@@ -131,14 +133,31 @@ function CreateListing() {
             })
           }
           
-          const imageUrls = await Promise.all([...images].map((image) => storeImages(image))
+          const imgUrls = await Promise.all([...images].map((image) => storeImages(image))
           ).catch(() => {
             setLoading(false)
             toast.error('Images not uploaded')
             return
           })
           
-          console.log(imageUrls)
+          const formDataCopy = {
+            ...formData,
+            imgUrls,
+            geolocation,
+            timeStamp: serverTimestamp(),
+          }
+
+            delete formDataCopy.images
+            delete formDataCopy.address
+            location && (formDataCopy.location = location)
+            !formDataCopy.offer && delete formDataCopy.discountedPrice
+
+            const docRef = await addDoc(collection(db, 'listings'), formDataCopy)
+            setLoading(false)
+            toast.success('Listing saved!')
+            navigate(`category/${formDataCopy.type}/${docRef.id}`)
+
+          console.log(imgUrls)
   }
       
         
