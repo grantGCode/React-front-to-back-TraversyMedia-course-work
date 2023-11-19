@@ -91,16 +91,17 @@ function CreateListing() {
     location.lng = longitude
     location = address
     console.log(geolocation, location)
-
+    // }
+    
     // store images in firebase
-    const storeImages = async (images) => {
+    const storeImages = async (image) => {
         return new Promise((resolve, reject) => {
           const storage = getStorage()
-          const fileName = `${auth.currentUser.uid}-${Image.name}-${uuidv4()}`
+          const fileName = `${auth.currentUser.uid}-${image.name}-${uuidv4()}`
           
           const storageRef = ref(storage, 'images/' + fileName )
 
-          const uploadTask = uploadBytesResumable(storageRef, Image);
+          const uploadTask = uploadBytesResumable(storageRef, image);
           uploadTask.on('state_changed', 
           (snapshot) => {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -118,12 +119,13 @@ function CreateListing() {
                 reject(error)
               }, 
               () => {
+                // Handle successful uploads on complete
+                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                   resolve(downloadURL);
                 });
               }
               );
-              // }
               
               
             })
@@ -143,33 +145,33 @@ function CreateListing() {
           
 
         
-        const onMutate = (e) => {
-          let boolean = null
+  const onMutate = (e) => {
+    let boolean = null
+        
+      if (e.target.value === 'false') {
+          Boolean = true
+        }
           
-          if (e.target.value === 'false') {
-            Boolean = true
-          }
+      if (e.target.value === 'false') {
+          Boolean = true
+        }
           
-          if (e.target.value === 'false') {
-            Boolean = true
-          }
-          
-          //Files
-          if (e.target.files) {
-            setFormData((prevState) => ({
-              ...prevState,
-              images: e.target.files
-            }))
-          }
+        //Files
+      if (e.target.files) {
+           setFormData((prevState) => ({
+           ...prevState,
+           images: e.target.files
+          }))
+        }
           
           // Text/Booleans/Numbers
-          if (!e.target.files) {
+      if (!e.target.files) {
             setFormData((prevState) => ({
-              ...prevState,
-              [e.target.id]: boolean ?? e.target.value
-            }))
-          }
-  
+            ...prevState,
+            [e.target.id]: boolean ?? e.target.value
+          }))
+        }
+      }
 
   if (loading) {
     return <Spinner />
@@ -410,8 +412,8 @@ function CreateListing() {
           </form>
         </main>
       </div>
-    )
-  }
-}
+    )}
+  
+  
 
 export default CreateListing
