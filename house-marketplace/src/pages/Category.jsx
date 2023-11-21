@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { collection, getDocs, query, where, orderBy, limit, startAfter, Timestamp } from 'firebase/firestore'
+import { collection, getDocs, query, where, orderBy, limit, /* startAfter, Timestamp */ } from 'firebase/firestore'
 import { db } from '../firebase.config'
 import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner'
@@ -32,12 +32,17 @@ function Category() {
                 let listings = []
 
                 querySnap.forEach((doc) => {
+                //    console.log(doc.data())
+                    if (!doc.exists) {
+                        return console.log("No data")
+                    } else {
                     return listings.push({
                         id: doc.id,
-                        data: doc.data()
-                    })
+                        data: doc.data() 
+                    })}
                 })
                 
+                // console.log(listingsRef.type.params)
                 setListings(listings)
                 setLoading(false)
             } catch (error) {
@@ -46,7 +51,7 @@ function Category() {
                 
             }
         }
-        
+        console.log('fetchListings ran')
         fetchListings()
     }, [params.categoryName])
 
@@ -61,7 +66,7 @@ function Category() {
 
                 <main>
                     <ul className="categoryListings">
-                        {listings.map((listing) => (<ListingItem listing={listing.data} id={listing.id} key={listing.id}></ListingItem>))}
+                        {listings.map((listing) => (<ListingItem  listing={listing.data} id={listing.id} key={listing.id}></ListingItem >))}
                             
                     </ul>
                 </main>
