@@ -25,6 +25,7 @@ function Listing() {
                 console.log(docSnap.data())
                 setListing(docSnap.data())
                 setLoading(false)
+                console.log('fetchListing ran')
             }
         }
         fetchListing()
@@ -37,17 +38,18 @@ function Listing() {
     <main>
       {/* Slider */}
 
+    
       <div className="shareIconDiv" onClick={() => {
         navigator.clipboard.writeText(window.location.href)
-        .then(() => {
+        // onClick(() => {
           setShareLinkCopied(true);
           setTimeout(() => {
             setShareLinkCopied(false);
           }, 2000);
-        })
-        .catch((error) => {
-          console.error('Error copying to clipboard:', error);
-        });
+        // })
+        // .catch((error) => {
+        //   console.error('Error copying to clipboard:', error);
+        // });
       
       }}>
         <img src={shareIcon} alt='' />
@@ -55,7 +57,7 @@ function Listing() {
 
       {shareLinkCopied && <p className='LinkCopied'>Link Copied!</p>}
 
-      <div className="listingDetails">
+      {/* <div className="listingDetails">
         <p className="listingName">{listing.name} - $ {listing.offer ? listing.discountedPrice
           .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') 
           : listing.regularPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -85,8 +87,8 @@ function Listing() {
 
           {/* Map */}
 
-          {auth.currentUser?.uid !== listing.userRef && (<Link to={`/contact/${listing.userRef}?listingName=${listing.name}&listingLocation=${listing.location}`} className="primaryButton">Contact Landlord</Link>)}
-      </div>
+          {/* {auth.currentUser?.uid !== listing.userRef && (<Link to={`/contact/${listing.userRef}?listingName=${listing.name}&listingLocation=${listing.location}`} className="primaryButton">Contact Landlord</Link>)}
+      </div> */}
     </main>
   )
 }
