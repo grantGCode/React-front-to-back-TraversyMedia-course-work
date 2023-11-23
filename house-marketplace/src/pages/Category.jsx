@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { collection, getDocs, query, where, orderBy, limit, /* startAfter, Timestamp */ } from 'firebase/firestore'
+import { collection, getDocs, query, where, orderBy, limit,  /* startAfter, timestamp */ } from 'firebase/firestore'
 import { db } from '../firebase.config'
 import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner'
@@ -21,28 +21,31 @@ function Category() {
                 const listingsRef = collection(db, 'listings')
 
                 //Create a query
-                const q = query(listingsRef,
+                const q = query(listingsRef, 
                     where('type', '==', params.categoryName), 
-                    orderBy('timestamp', 'desc'),
+                    orderBy('timestamp', 'desc'), 
                     limit(10)
                 )
+
                 //Execute query
                 const querySnap = await getDocs(q)
 
                 let listings = []
 
                 querySnap.forEach((doc) => {
-                //    console.log(doc.data())
+                   console.log(doc.data(), 'from querySnap') // Debuing 
                     if (!doc.exists) {
                         return console.log("No data")
                     } else {
                     return listings.push({
                         id: doc.id,
-                        data: doc.data() 
-                    })}
+                        data: doc.data(), 
+                    },
+                    console.log('recived data')
+                    )}
                 })
                 
-                // console.log(listingsRef.type.params)
+                console.log(db, 'querySnap')// debuging
                 setListings(listings)
                 setLoading(false)
             } catch (error) {
@@ -50,8 +53,9 @@ function Category() {
                 console.log(error)
                 
             }
+           
         }
-        console.log('fetchListings ran')
+        console.log('useEffect ran')
         fetchListings()
     }, [params.categoryName])
 
@@ -64,12 +68,20 @@ function Category() {
         <Spinner />
         ) : listings && listings.length > 0 ? (
 
-                <main>
+            <main>
                     <ul className="categoryListings">
-                        {listings.map((listing) => (<ListingItem  listing={listing.data} id={listing.id} key={listing.id}></ListingItem >))}
+                        {listings.map((listing) => (<h3  key={listing.id}>{listing.data.name}</h3 >))}
                             
                     </ul>
                 </main>
+
+
+                // <main>
+                //     <ul className="categoryListings">
+                //         {listings.map((listing) => (<ListingItem  listing={listing.data} id={listing.id} key={listing.id}></ListingItem >))}
+                            
+                //     </ul>
+                // </main>
             ) : <p>No listings for {params.categoryName}</p>}
     </div>
   )
