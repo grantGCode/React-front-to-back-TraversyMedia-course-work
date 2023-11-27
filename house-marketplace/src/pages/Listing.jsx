@@ -20,15 +20,21 @@ function Listing() {
         const fetchListing = async () => {
             const docRef = doc(db, 'listings', params.listingId)
             const docSnap = await getDoc(docRef)
-
-            if(docSnap.data.exists()) { 
-                console.log(docSnap.data())
-                setListing(docSnap.data())
-                setLoading(false)
-            }
-        }
+            
+            
+            if(docSnap.exists()) { 
+              console.log(docSnap.data())
+              setListing(docSnap.data())
+              setLoading(false)
+              console.log('fetchLisings if statment Ran')
+            } else {
+              setLoading(false);
+              console.log('Document does not exist');
+          }
+        };
         fetchListing()
-    }, [navigate, params.listingId])
+        console.log('useEffect Ran')
+   }, [navigate, params.listingId])
 
     if (loading) {
       return <Spinner />
