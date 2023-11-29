@@ -7,7 +7,7 @@ const User =  require('../models/userModel')
 // @route   /api/users
 //@access   Public
 const registerUser = asyncHandler(async (req, res) => {
-   const {name, email, password} =req.body
+   const {name, email, password} = req.body
 
    //Vallidation
     if (!name || !email || !password) {
@@ -16,7 +16,7 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 
     //Find if user already exists
-    const userExists = await User.findOne({email})
+    const userExists = await User.findOne({email: email})
 
     if(userExists) {
         res.status(400)
