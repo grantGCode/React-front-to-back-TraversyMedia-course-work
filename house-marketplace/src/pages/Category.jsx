@@ -18,12 +18,12 @@ function Category() {
         const fetchListings = async () => {
             try {
                 // Get reference
-                const listingsRef = collection(db, 'listings')
+                const listingsRef = collection(db, 'listings') // Find out how I'm rechreaving this data on 21
 
                 //Create a query
-                const q = query(listingsRef, 
-                    where('type', '==', params.categoryName), 
-                    orderBy('timestamp', 'desc'), 
+                const q = await query(listingsRef,
+                    where('type', '==', 'rent'), 
+                    orderBy('timestamp', 'desc'),  
                     limit(10)
                 )
 
@@ -57,7 +57,7 @@ function Category() {
         }
         console.log('useEffect ran')
         fetchListings()
-    }, [params.categoryName])
+    }, [])
 
   return (
     <div className='category'>
