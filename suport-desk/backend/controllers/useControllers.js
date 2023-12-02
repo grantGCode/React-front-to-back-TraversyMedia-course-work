@@ -52,7 +52,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   /api/users
 //@access   Public
 const loginUser = asyncHandler(async (req, res) => {
-    const {email, password} = req.blody
+    const {email, password} = req.body
 
     const user =await User.findOne({email})
     //Check user and passwords match
@@ -62,6 +62,7 @@ const loginUser = asyncHandler(async (req, res) => {
                 name: user.name,
                 email: user.email
             })
+            console.log('seaching for user...')
             }else{
                 res.status(401)
                 throw new Error('Invalid credentials')
