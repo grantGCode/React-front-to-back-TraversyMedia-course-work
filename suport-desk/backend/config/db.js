@@ -8,7 +8,7 @@ const connectDB = async () => {
         // more connection checks 
         console.log(`Host: ${conn.connection.host}`);
         console.log(`Port: ${conn.connection.port}`);
-        console.log(`Database: ${conn.connection.name}`); //Look into what Test data base is?
+        console.log(`Database: ${conn.connection.name}`);
     } catch (error) {
         console.log(`Error: ${error.message}`.red.underline.bold)
         process.exit(1)
