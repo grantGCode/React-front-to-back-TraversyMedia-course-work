@@ -8,7 +8,7 @@ import {login} from '../features/auth/authSlice'
 function Login() {
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
   })
 
   const {email, password} = formData
