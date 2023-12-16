@@ -1,90 +1,90 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { collection, getDocs, query, where, orderBy, limit,  /* startAfter, timestamp */ } from 'firebase/firestore'
-import { db } from '../firebase.config'
-import { toast } from 'react-toastify'
-import Spinner from '../components/Spinner'
-import ListingItem from '../components/ListingItem'
+// import { useEffect, useState } from 'react'
+// import { useParams } from 'react-router-dom'
+// import { collection, getDocs, query, where, orderBy, limit,  /* startAfter, timestamp */ } from 'firebase/firestore'
+// import { db } from '../firebase.config'
+// import { toast } from 'react-toastify'
+// import Spinner from '../components/Spinner'
+// import ListingItem from '../components/ListingItem'
 
 
 
-function Category() {
-    const [listings, setListings] = useState(null)
-    const [loading, setLoading] = useState(true)
+// function Category() {
+//     const [listings, setListings] = useState(null)
+//     const [loading, setLoading] = useState(true)
     
-    const params = useParams()
+//     const params = useParams()
     
-    useEffect(() => {
-        const fetchListings = async () => {
-            try {
-                // Get reference
-                const listingsRef = collection(db, 'listings') // Find out how I'm rechreaving this data on 21
-
-                //Create a query
-                const q = await query(listingsRef,
-                    where('type', '==', 'rent'), 
-                    orderBy('timestamp', 'desc'),  
-                    limit(10)
-                )
-
-                //Execute query
-                const querySnap = await getDocs(q)
-
-                let listings = []
-
-                querySnap.forEach((doc) => {
-                   console.log(doc.data(), 'from querySnap') // Debuing 
-                    if (!doc.exists) {
-                        return console.log("No data")
-                    } else {
-                    return listings.push({
-                        id: doc.id,
-                        data: doc.data(), 
-                    },
-                    console.log('recived data')
-                    )}
-                })
+//     useEffect(() => {
+//         const fetchListings = async () => {
+//             try {
+//                 // Get reference
+//                 const listingsRef = collection(db, 'listings') // Find out how I'm rechreaving this data on 21
+    
+//                 //Create a query
+//                 const q = query(listingsRef,
+//                     where('type', '==', 'rent'), 
+//                     orderBy('timestamp', 'desc'),  
+//                     limit(10)
+//                 )
+    
+//                 //Execute query
+//                 const querySnap = await getDocs(q)
+    
+//                 let listings = []
+    
+//                 querySnap.forEach((doc) => {
+//                    console.log(doc.data(), 'from querySnap') // Debuing 
+//                     // if (!doc.exists) {
+//                     //     return console.log("No data")
+//                     // } else {
+//                     // return listings.push({
+//                     //     id: doc.id,
+//                     //     data: doc.data(), 
+//                     // },
+//                     // console.log('recived data')
+//                     // )}
+//                 })
                 
-                console.log(db, 'querySnap')// debuging
-                setListings(listings)
-                setLoading(false)
-            } catch (error) {
-                toast.error('could not fetch listings')
-                console.log(error)
+//                 console.log(db, 'querySnap')// debuging
+//                 setListings(listings)
+//                 setLoading(false)
+//             } catch (error) {
+//                 toast.error('could not fetch listings')
+//                 console.log(error)
                 
-            }
+//             }
            
-        }
-        console.log('useEffect ran')
-        fetchListings()
-    }, [])
+//             console.log('fetchListings ran')
+//         }
+//         fetchListings()
+//     }, [])
 
-  return (
-    <div className='category'>
-        <header>
-            <p className='pageHeader'>{params.categoryName === 'rent' ? 'Places for rent' : 'Places for sale'}</p>
-        </header>
-        {loading ? (
-        <Spinner />
-        ) : listings && listings.length > 0 ? (
+//   return (
+//     <div className='category'>
+//         <header>
+//             <p className='pageHeader'>{params.categoryName === 'rent' ? 'Places for rent' : 'Places for sale'}</p>
+//         </header>
+//         {loading ? (
+//         <Spinner />
+//         ) : listings && listings.length > 0 ? (
 
-            <main>
-                    <ul className="categoryListings">
-                        {listings.map((listing) => (<h3  key={listing.id}>{listing.data.name}</h3 >))}
+//             <main>
+//                     <ul className="categoryListings">
+//                         {listings.map((listing) => (<h3  key={listing.id}>{listing.data.name}</h3 >))}
                             
-                    </ul>
-                </main>
+//                     </ul>
+//                 </main>
 
 
-                // <main>
-                //     <ul className="categoryListings">
-                //         {listings.map((listing) => (<ListingItem  listing={listing.data} id={listing.id} key={listing.id}></ListingItem >))}
+//                 // <main>
+//                 //     <ul className="categoryListings">
+//                 //         {listings.map((listing) => (<ListingItem  listing={listing.data} id={listing.id} key={listing.id}></ListingItem >))}
                             
-                //     </ul>
-                // </main>
-            ) : <p>No listings for {params.categoryName}</p>}
-    </div>
-  )
-}
+//                 //     </ul>
+//                 // </main>
+//             ) : <p>No listings for {params.categoryName}</p>}
+//     </div>
+//   )
+// }
 
-export default Category
+// export default Category
