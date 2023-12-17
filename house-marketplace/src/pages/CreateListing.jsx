@@ -52,6 +52,12 @@ function CreateListing() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
+
+    console.log('Discounted Price:', discountedPrice, typeof discountedPrice );
+    console.log('Regular Price:', regularPrice, typeof regularPrice);
+
+
+
     if (discountedPrice >= regularPrice) {
       setLoading(false)
       toast.error('Discounted price needs to be less than regular price')
@@ -189,6 +195,47 @@ function CreateListing() {
             ...prevState,
             [e.target.id]: boolean ?? e.target.value
           }))
+        }
+
+          // Parking spot
+      if (e.target.id === 'parking') {
+            boolean = e.target.value === 'true';
+            setFormData((prevState) => ({
+            ...prevState,
+            parking: boolean,
+          }));
+        }
+          // Furnished
+      if (e.target.id === 'furnished') {
+            boolean = e.target.value === 'true';
+            setFormData((prevState) => ({
+            ...prevState,
+            furnished: boolean,
+          }));
+        }
+
+          // Offer
+      if (e.target.id === 'offer') {
+            boolean = e.target.value === 'true';
+            setFormData((prevState) => ({
+            ...prevState,
+            offer: boolean,
+          }));
+        }
+          // Regular Price
+      if (e.target.id === 'regularPrice') {
+        setFormData((prevState) => ({
+            ...prevState,
+            regularPrice: parseFloat(e.target.value) || 0,
+            }));
+        }
+
+          // Discounted Price
+      if (e.target.id === 'discountedPrice') {
+            setFormData((prevState) => ({
+            ...prevState,
+            discountedPrice: parseFloat(e.target.value) || 0,
+          }));
         }
       }
 
