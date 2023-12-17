@@ -81,7 +81,7 @@ function SignUp() {
        </main>
        <OAuth />
 
-       <Link to='/sign-ip' className='registerLink'>Sign In Insead</Link>
+       <Link to='/sign-in' className='registerLink'>Sign In Insead</Link>
       </div>
     </>
   )
