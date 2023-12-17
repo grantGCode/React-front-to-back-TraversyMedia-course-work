@@ -5,7 +5,7 @@ import NavBar from './components/NavBar'
 import PrivateRoute from './components/PrivateRoute'
 import Explore from './pages/Explore';
 import Offers from './pages/Offers';
-import Category from './pages/Category';
+import Category from './pages/Category'; 
 import Profile from './pages/profile';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';

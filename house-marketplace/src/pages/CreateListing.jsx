@@ -52,9 +52,15 @@ function CreateListing() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
+
+    console.log('Discounted Price:', discountedPrice, typeof discountedPrice );
+    console.log('Regular Price:', regularPrice, typeof regularPrice);
+
+
+
     if (discountedPrice >= regularPrice) {
       setLoading(false)
-      toast.error('Discounted price needs to be less than regular Price')
+      toast.error('Discounted price needs to be less than regular price')
       return
     }
     
@@ -89,7 +95,7 @@ function CreateListing() {
     //  }
     // } else {
     geolocation.lat = latitude
-    location.lng = longitude
+    geolocation.lng = longitude
     location = address
     console.log(geolocation, location)
     // }
@@ -147,15 +153,15 @@ function CreateListing() {
             timeStamp: serverTimestamp(),
           }
 
+          formDataCopy.location = address
             delete formDataCopy.images
             delete formDataCopy.address
-            location && (formDataCopy.location = location)
             !formDataCopy.offer && delete formDataCopy.discountedPrice
 
             const docRef = await addDoc(collection(db, 'listings'), formDataCopy)
             setLoading(false)
             toast.success('Listing saved!')
-            navigate(`category/${formDataCopy.type}/${docRef.id}`)
+            navigate(`/category/${formDataCopy.type}/${docRef.id}`) // Look in to later just incase
 
           console.log(imgUrls)
   }
@@ -168,11 +174,11 @@ function CreateListing() {
     let boolean = null
         
       if (e.target.value === 'false') {
-          Boolean = true
+          boolean = true
         }
           
       if (e.target.value === 'false') {
-          Boolean = true
+          boolean = false
         }
           
         //Files
@@ -189,6 +195,47 @@ function CreateListing() {
             ...prevState,
             [e.target.id]: boolean ?? e.target.value
           }))
+        }
+
+          // Parking spot
+      if (e.target.id === 'parking') {
+            boolean = e.target.value === 'true';
+            setFormData((prevState) => ({
+            ...prevState,
+            parking: boolean,
+          }));
+        }
+          // Furnished
+      if (e.target.id === 'furnished') {
+            boolean = e.target.value === 'true';
+            setFormData((prevState) => ({
+            ...prevState,
+            furnished: boolean,
+          }));
+        }
+
+          // Offer
+      if (e.target.id === 'offer') {
+            boolean = e.target.value === 'true';
+            setFormData((prevState) => ({
+            ...prevState,
+            offer: boolean,
+          }));
+        }
+          // Regular Price
+      if (e.target.id === 'regularPrice') {
+        setFormData((prevState) => ({
+            ...prevState,
+            regularPrice: parseFloat(e.target.value) || 0,
+            }));
+        }
+
+          // Discounted Price
+      if (e.target.id === 'discountedPrice') {
+            setFormData((prevState) => ({
+            ...prevState,
+            discountedPrice: parseFloat(e.target.value) || 0,
+          }));
         }
       }
 
