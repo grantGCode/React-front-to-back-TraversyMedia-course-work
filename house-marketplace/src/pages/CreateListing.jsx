@@ -54,7 +54,7 @@ function CreateListing() {
     e.preventDefault()
     if (discountedPrice >= regularPrice) {
       setLoading(false)
-      toast.error('Discounted price needs to be less than regular Price')
+      toast.error('Discounted price needs to be less than regular price')
       return
     }
     
@@ -168,11 +168,11 @@ function CreateListing() {
     let boolean = null
         
       if (e.target.value === 'false') {
-          Boolean = true
+          boolean = true
         }
           
       if (e.target.value === 'false') {
-          Boolean = true
+          boolean = false
         }
           
         //Files
