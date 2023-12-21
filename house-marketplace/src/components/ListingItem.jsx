@@ -10,7 +10,7 @@ function ListingItem({listing, id, onDelete }) {
     <div>
         <li className='categoryListing'>
             <Link to={`/category/${listing.type}/${id}`} className='categoryListingLink'>
-              <img src={listing.imageUrls[1]} alt={listing.name} className='categoryListingImg' />
+              <img src={listing.imgUrls[0]} alt={listing.name} className='categoryListingImg' />
               <div className="categoryListingDetails">
                 <p className="categoryListingLocation">{listing.location}</p>
                 <p className="categoryListingName">{listing.name}</p>
@@ -18,14 +18,15 @@ function ListingItem({listing, id, onDelete }) {
                 <p className="categoryListingPrice">${listing.offer ? listing.discountedPrice
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                  : listing.regularPrice}</p>
+                  : listing.regularPrice}
                   {listing.type === 'rent' && '/ Month'}
-                  <div className="categoryListingDiv">
-                    <img src={bedIcon} alt="Bed"/>
-                    <p className='categoryListingInfoText'>{listing.bedrooms > 1 ? `${listing.bedrooms} Bedrooms` : '1 Bedroom'}</p>
-                    <img src={BathtubIcon} alt='Bath' />
-                    <p className='categoryListingInfoText'>{listing.bathrooms > 1 ? `${listing.bathrooms} Bathrooms` : '1 Bathroom'}</p>
-                  </div>
+                </p>
+                <div className="categoryListingInfoDiv">
+                  <img src={bedIcon} alt="Bed"/>
+                  <p className='categoryListingInfoText'>{listing.bedrooms > 1 ? `${listing.bedrooms} Bedrooms` : '1 Bedroom'}</p>
+                  <img src={BathtubIcon} alt='Bath' />
+                  <p className='categoryListingInfoText'>{listing.bathrooms > 1 ? `${listing.bathrooms} Bathrooms` : '1 Bathroom'}</p>
+                </div>
               </div>
             </Link>
 
